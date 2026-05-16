@@ -1,5 +1,5 @@
 extends Node
-# user://save.json. On Web, Godot maps user:// to IndexedDB automatically.
+# user://save.json に保存。Web では Godot が user:// を IndexedDB へ自動でマップする。
 
 const SAVE_PATH := "user://save.json"
 
@@ -15,7 +15,7 @@ func _ready() -> void:
 func save_game() -> void:
     var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
     if f == null:
-        push_warning("Cannot open save for write")
+        push_warning("セーブファイルを書き込めません")
         return
     f.store_string(JSON.stringify(data))
 
@@ -33,6 +33,7 @@ func unlock_job(id: String) -> void:
         save_game()
 
 func record_wave(w: int) -> void:
+    # 自己ベストのウェーブのみ更新。
     if w > int(data.get("highest_wave", 0)):
         data.highest_wave = w
         save_game()

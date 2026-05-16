@@ -1,5 +1,5 @@
 extends "res://scripts/jobs/_stub.gd"
-# Mage: range AOE meteor at aim point.
+# メイジ: 照準先に着弾する範囲メテオ。
 
 func on_skill_q() -> void:
     if cd.q > 0.0: return

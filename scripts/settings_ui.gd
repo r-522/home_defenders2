@@ -16,7 +16,7 @@ func _ready() -> void:
     bloom_chk.button_pressed = bool(SettingsManager.graphics.bloom)
     ssao_chk.button_pressed = bool(SettingsManager.graphics.ssao)
     for v in [30, 60, 120, 0]:
-        fps_opt.add_item("FPS %s" % (str(v) if v > 0 else "Unlimited"))
+        fps_opt.add_item("FPS %s" % (str(v) if v > 0 else "無制限"))
     master_slider.value = float(SettingsManager.audio.master)
     bgm_slider.value = float(SettingsManager.audio.bgm)
     se_slider.value = float(SettingsManager.audio.se)

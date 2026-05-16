@@ -1,73 +1,87 @@
-# Home Defenders (ホーディ)
+# Home Defenders（ホーディ）
 
-3D TPS × Tower Defense × Online Co-op — built with **Godot 4.3** and deployed to **Vercel** as a WebGL build.
+3D TPS × タワーディフェンス × オンライン協力アクション。**Godot 4.3** で開発し、**Vercel** に WebGL ビルドを配信します。
 
-> Defend your home from the demon king's legions with build-anywhere towers,
-> a 40-job action kit, and up to 4-player WebRTC co-op.
+> 押し寄せる魔王軍から「おうち」を守れ。  
+> どこにでも建てられる防衛タワー、全 40 職のアクションスキル、最大 4 人の WebRTC 協力プレイ。
 
-## Quick start (desktop)
+## クイックスタート（デスクトップ）
 
-1. Install [Godot 4.3](https://godotengine.org/) (standard build).
-2. Open `project.godot` and press **F5** (or run from the editor).
-3. Pick a job → Start Game. WASD to move, mouse to aim, **LMB** to attack,
-   **Shift** to dodge, **Q/E/F** for skills, **B** for build mode
-   (1/2/3 selects tower kind, LMB places, B again to exit).
+1. [Godot 4.3](https://godotengine.org/) をインストール。
+2. `project.godot` を開いて **F5** で起動。
+3. 職業を選択 → ゲーム開始。
+   - **WASD**: 移動
+   - **マウス**: 視点・照準
+   - **左クリック**: 通常攻撃
+   - **Shift**: 回避ロール（無敵時間あり）
+   - **Q / E / F**: スキル
+   - **B**: 建設モード切替（1/2/3 でタワー種別選択、左クリックで設置）
+   - **ESC**: カーソル開放
 
-## Web build
+## Web ビルド
 
 ```bash
 godot --headless --export-release "Web" public/index.html
 cd public && python3 -m http.server 8000
 ```
 
-The Web build requires `Cross-Origin-Embedder-Policy: require-corp` and
-`Cross-Origin-Opener-Policy: same-origin` to enable `SharedArrayBuffer`.
-The included `vercel.json` configures this for Vercel hosting.
+Web 実行には `Cross-Origin-Embedder-Policy: require-corp` と
+`Cross-Origin-Opener-Policy: same-origin`（`SharedArrayBuffer` の有効化）が必要です。
+同梱の `vercel.json` で設定済みです。
 
-## Multiplayer (WebRTC)
+### Vercel デプロイ設定
 
-- On the title screen, type a Room ID to host or join.
-- Default signaling endpoint is `wss://YOUR-VERCEL-DEPLOYMENT/api/signal`.
-  Update `SIGNALING_URL_DEFAULT` in `scripts/autoload/network_manager.gd`
-  once you deploy `signaling/api/signal.ts`.
-- Current sync scope: position-only RPC (first iteration). Client-side
-  prediction is TODO in `network_manager.gd`.
+- `vercel.json` の `outputDirectory` は `public` を指しています。
+- 実ビルドは GitHub Actions（`.github/workflows/deploy.yml`）が
+  Godot Headless で生成し、Vercel にデプロイします。
+- リポジトリの `public/index.html` は **CI 未完了時のプレースホルダ**です。
+- Vercel ダッシュボードで以下のシークレットを設定してください:
+  `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`。
 
-## Data-driven balance
+## マルチプレイ（WebRTC）
 
-All numbers live in `data/*.json` — edit & reload, no code changes needed.
+- タイトル画面で Room ID を入力するとホスト／参加が可能です。
+- シグナリングのデフォルト URL は `wss://YOUR-VERCEL-DEPLOYMENT/api/signal`。
+  `signaling/api/signal.ts` をデプロイ後、
+  `scripts/autoload/network_manager.gd` の `SIGNALING_URL_DEFAULT` を更新してください。
+- 現状の同期範囲: 位置のみ RPC（第一弾）。
+  クライアント側予測（CSP）は TODO として `network_manager.gd` に明示。
 
-| File | Purpose |
+## データ駆動のバランス調整
+
+ゲーム内数値はすべて `data/*.json` で一元管理。コード改修なしで再調整可能です。
+
+| ファイル | 役割 |
 | --- | --- |
-| `data/jobs.json` | All 40 jobs |
-| `data/enemies.json` | Enemy archetypes |
-| `data/towers.json` | Tower kinds (Arrow / Cannon / Slow) |
-| `data/waves.json` | Wave composition |
-| `data/balance.json` | Global tuning |
+| `data/jobs.json` | 全 40 職のステータス |
+| `data/enemies.json` | 敵アーキタイプ |
+| `data/towers.json` | タワー種別（Arrow / Cannon / Slow） |
+| `data/waves.json` | ウェーブ構成 |
+| `data/balance.json` | 全体調整値 |
 
-## Project layout
+## プロジェクト構成
 
 ```
-scenes/      Title, Game, HUD, Player, Enemy, Tower, Home, Projectile, Settings
-scripts/     Gameplay GDScript
+scenes/      Title / Game / HUD / Player / Enemy / Tower / Home / Projectile / Settings
+scripts/     GDScript ゲームロジック
   autoload/  GameState, EventBus, DataLoader, JobRegistry, SaveSystem,
              ObjectPool, NetworkManager, SettingsManager
-  jobs/      Per-job skill logic (5 specialised + universal stub)
-data/        JSON balance & content
-signaling/   Vercel Edge Function for WebRTC signalling
-tests/       GUT unit tests
-.github/     CI/CD (Godot Headless build + Vercel deploy)
+  jobs/      職業ごとのスキル実装（5 職は専用、残り 35 職は共通スタブ）
+data/        JSON でのバランス・コンテンツ定義
+signaling/   WebRTC 用 Vercel Edge Function
+tests/       GUT による単体テスト
+.github/     CI/CD（Godot Headless ビルド + Vercel デプロイ）
 ```
 
-## Roadmap
+## ロードマップ
 
-This commit lands **Phase 1 (core mechanics)** and **Phase 2 skeleton**
-(40 jobs defined; 5 with custom skills, 35 share an AOE stub).
+今回のコミットは **Phase 1（コア機構）** と **Phase 2 の骨格**
+（全 40 職定義、5 職に専用スキル、35 職は AOE スタブ）を含みます。
 
-Follow-ups:
+今後の作業:
 
-- Full WebRTC ICE/SDP plumbing + client-side prediction
-- 35 remaining jobs' bespoke skill logic
-- Multi-area level content + 50-wave survival
-- High-fidelity art (currently primitives)
-- Sentry error reporting, cloud save (Vercel KV / Postgres)
+- WebRTC の完全な ICE/SDP 折衝とクライアント側予測
+- 残り 35 職の専用スキルロジック
+- 複数エリアのレベル設計と 50 ウェーブ・サバイバル
+- ハイクオリティな 3D アセット・VFX・SE への差し替え
+- Sentry によるエラー収集、Vercel KV / Postgres を用いたクラウドセーブ

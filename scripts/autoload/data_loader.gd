@@ -1,5 +1,5 @@
 extends Node
-# Loads JSON data files. All balance numbers live in data/*.json.
+# JSON データを起動時に読み込む。バランス調整はすべて data/*.json で行う。
 
 var jobs: Dictionary = {}
 var enemies: Dictionary = {}
@@ -17,12 +17,12 @@ func _ready() -> void:
 
 func _load_json(path: String) -> Variant:
     if not FileAccess.file_exists(path):
-        push_warning("Missing data file: %s" % path)
+        push_warning("データファイルが見つかりません: %s" % path)
         return {}
     var f := FileAccess.open(path, FileAccess.READ)
     var txt := f.get_as_text()
     var parsed = JSON.parse_string(txt)
     if parsed == null:
-        push_error("Failed to parse %s" % path)
+        push_error("JSON のパースに失敗: %s" % path)
         return {}
     return parsed

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Home Defenders（ホーディ） — ビルド準備中</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(circle at 50% 30%, #1c2440 0%, #07080d 70%);
+    color: #e8eaf2;
+    font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", sans-serif;
+    display: grid; place-items: center; text-align: center; padding: 2rem;
+  }
+  .card {
+    max-width: 720px;
+    padding: 2.5rem 2rem;
+    background: rgba(20, 28, 48, 0.65);
+    border: 1px solid #2c3a64;
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+  h1 { margin: 0 0 .5rem; font-size: 2rem; letter-spacing: .04em; }
+  .sub { color: #9aa6c4; margin-bottom: 1.5rem; }
+  code { background: #0e1426; padding: 2px 6px; border-radius: 4px; color: #ffd479; }
+  .pulse {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    background: #58e58a; box-shadow: 0 0 12px #58e58a;
+    animation: p 1.2s ease-in-out infinite; margin-right: .5rem;
+  }
+  @keyframes p { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+  a { color: #8ab4ff; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Home Defenders（ホーディ）</h1>
+    <div class="sub"><span class="pulse"></span>WebGL ビルドを準備中です</div>
+    <p>
+      このページは <code>public/index.html</code> のプレースホルダです。<br />
+      実際のゲームバイナリは GitHub Actions が Godot Headless で生成し、
+      Vercel に自動デプロイされます。
+    </p>
+    <p style="font-size: .9rem; color:#9aa6c4">
+      ローカルでビルドする場合:
+      <br />
+      <code>godot --headless --export-release "Web" public/index.html</code>
+    </p>
+    <p style="font-size: .85rem; color:#7a86a8; margin-top: 2rem">
+      ※ Web 実行には <code>SharedArrayBuffer</code>（COOP/COEP）が必要です。<br />
+      <code>vercel.json</code> で設定済み。
+    </p>
+  </div>
+</body>
+</html>

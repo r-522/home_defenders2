@@ -1,5 +1,5 @@
 extends CharacterBody3D
-# Walks via NavigationAgent3D toward the Home. Damages on contact.
+# NavigationAgent3D で「おうち」へ進軍し、接触時にダメージを与える。
 
 @export var move_speed: float = 3.5
 @export var max_hp: float = 60.0

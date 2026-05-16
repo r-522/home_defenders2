@@ -1,5 +1,5 @@
 extends "res://scripts/jobs/_stub.gd"
-# Archer: piercing arrow line.
+# アーチャー: 直線状を貫通する矢。
 
 func on_skill_q() -> void:
     if cd.q > 0.0: return

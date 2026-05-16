@@ -1,5 +1,5 @@
 extends StaticBody3D
-# Generic tower. Behaviour driven by data (kind: "arrow" | "cannon" | "slow").
+# 汎用タワー。挙動は data/towers.json の種別（arrow / cannon / slow）で切替。
 
 @export var kind: String = "arrow"
 
@@ -59,7 +59,7 @@ func _fire(target: Node3D) -> void:
             if target.has_method("take_damage"):
                 target.take_damage(damage)
         "cannon":
-            # Splash AOE at target position.
+            # ターゲット地点を中心とした範囲ダメージ。
             for e in get_tree().get_nodes_in_group("enemies"):
                 if e.global_position.distance_to(target.global_position) <= splash:
                     if e.has_method("take_damage"):

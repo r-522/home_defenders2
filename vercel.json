@@ -1,4 +1,8 @@
 {
+  "outputDirectory": "public",
+  "buildCommand": null,
+  "installCommand": null,
+  "framework": null,
   "headers": [
     {
       "source": "/(.*)",
@@ -7,8 +11,5 @@
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
       ]
     }
-  ],
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" }
   ]
 }

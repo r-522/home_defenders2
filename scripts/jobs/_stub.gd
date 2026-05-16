@@ -1,6 +1,6 @@
 extends Node
-# Placeholder skill logic for jobs not yet specialised.
-# Each Q/E/F is a usable AOE pulse + cooldown so the kit feels alive.
+# 専用ロジック未実装の職業向けの共通スキルスタブ。
+# Q/E/F すべてに AOE パルス + クールダウンを持たせ、最低限プレイ可能な状態にする。
 
 var _owner: Node = null
 var cd: Dictionary = {"q": 0.0, "e": 0.0, "f": 0.0}
