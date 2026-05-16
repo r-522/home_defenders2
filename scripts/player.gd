@@ -1,5 +1,6 @@
 extends CharacterBody3D
-# TPS player controller. Mouse-look on SpringArm3D, WASD relative to camera yaw.
+# TPS プレイヤーコントローラ。SpringArm3D による視点回転、
+# WASD はカメラ Yaw 相対に変換して移動する。
 
 @export var move_speed: float = 7.5
 @export var dodge_speed: float = 18.0

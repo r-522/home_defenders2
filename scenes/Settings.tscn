@@ -27,21 +27,21 @@ offset_right = -24.0
 offset_bottom = -24.0
 
 [node name="Title" type="Label" parent="Panel/VBox"]
-text = "Settings"
+text = "設定"
 theme_override_font_sizes/font_size = 32
 
 [node name="Graphics" type="VBoxContainer" parent="Panel/VBox"]
 
 [node name="GraphicsLabel" type="Label" parent="Panel/VBox/Graphics"]
-text = "Graphics"
+text = "グラフィック"
 
 [node name="VSync" type="CheckBox" parent="Panel/VBox/Graphics"]
-text = "V-Sync"
+text = "垂直同期 (V-Sync)"
 
 [node name="FPSCap" type="OptionButton" parent="Panel/VBox/Graphics"]
 
 [node name="Bloom" type="CheckBox" parent="Panel/VBox/Graphics"]
-text = "Bloom"
+text = "ブルーム"
 
 [node name="SSAO" type="CheckBox" parent="Panel/VBox/Graphics"]
 text = "SSAO"
@@ -49,7 +49,7 @@ text = "SSAO"
 [node name="Audio" type="VBoxContainer" parent="Panel/VBox"]
 
 [node name="AudioLabel" type="Label" parent="Panel/VBox/Audio"]
-text = "Audio"
+text = "オーディオ"
 
 [node name="Master" type="HSlider" parent="Panel/VBox/Audio"]
 max_value = 1.0
@@ -69,9 +69,9 @@ value = 1.0
 [node name="Bottom" type="HBoxContainer" parent="Panel/VBox"]
 
 [node name="Save" type="Button" parent="Panel/VBox/Bottom"]
-text = "Save"
+text = "保存"
 custom_minimum_size = Vector2(160, 48)
 
 [node name="Back" type="Button" parent="Panel/VBox/Bottom"]
-text = "Back"
+text = "戻る"
 custom_minimum_size = Vector2(160, 48)

@@ -16,15 +16,15 @@ offset_right = 1260.0
 offset_bottom = 50.0
 
 [node name="HomeHP" type="Label" parent="Root/Top"]
-text = "Home HP: ---"
+text = "おうち HP: ---"
 custom_minimum_size = Vector2(320, 0)
 
 [node name="Gold" type="Label" parent="Root/Top"]
-text = "Gold: ---"
+text = "ゴールド: ---"
 custom_minimum_size = Vector2(220, 0)
 
 [node name="Wave" type="Label" parent="Root/Top"]
-text = "Wave: ---"
+text = "ウェーブ: ---"
 custom_minimum_size = Vector2(180, 0)
 
 [node name="BuildHint" type="Label" parent="Root"]
@@ -44,7 +44,7 @@ offset_bottom = 420.0
 [node name="Label" type="Label" parent="Root/GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "GAME OVER"
+text = "ゲームオーバー"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 40

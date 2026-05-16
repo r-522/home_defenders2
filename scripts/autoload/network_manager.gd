@@ -1,6 +1,6 @@
 extends Node
-# WebRTC P2P skeleton. Host = authority. Min impl: position sync via RPC.
-# Signaling endpoint is a Vercel Edge Function (see signaling/).
+# WebRTC による P2P 通信の骨格。ホストが Authority となる方式。
+# 最小実装は RPC による位置同期のみ。シグナリングは Vercel Edge Function を使用。
 
 signal peer_joined(peer_id: int)
 signal peer_left(peer_id: int)
@@ -15,11 +15,13 @@ var local_peer_id: int = 1
 var enabled: bool = false
 
 func host_room(rid: String, signaling_url: String = SIGNALING_URL_DEFAULT) -> void:
+    # 部屋の作成（自分が Authority になる）。
     room_id = rid
     is_host = true
     _connect_signaling(signaling_url, "host")
 
 func join_room(rid: String, signaling_url: String = SIGNALING_URL_DEFAULT) -> void:
+    # 既存の部屋に参加。
     room_id = rid
     is_host = false
     _connect_signaling(signaling_url, "join")
@@ -29,12 +31,12 @@ func _connect_signaling(url: String, mode: String) -> void:
     var full := "%s?room=%s&mode=%s" % [url, room_id, mode]
     var err := ws.connect_to_url(full)
     if err != OK:
-        push_warning("Signaling connect failed: %s" % err)
+        push_warning("シグナリングへの接続に失敗: %s" % err)
         return
     enabled = true
     rtc = WebRTCMultiplayerPeer.new()
-    # Real offer/answer/ICE exchange is wired in _process when ws state is OPEN.
-    # See docs at https://docs.godotengine.org/en/stable/tutorials/networking/webrtc.html
+    # 本実装の Offer/Answer/ICE 交換は ws の OPEN 確立後に行う。
+    # 詳細: https://docs.godotengine.org/en/stable/tutorials/networking/webrtc.html
 
 func _process(_dt: float) -> void:
     if not enabled or ws == null:
@@ -48,10 +50,10 @@ func _process(_dt: float) -> void:
             _handle_signal(msg)
 
 func _handle_signal(_msg: Dictionary) -> void:
-    # TODO: full ICE/SDP plumbing. Stubbed for first iteration.
+    # TODO: ICE/SDP の完全な折衝。今回の骨格ではスタブのみ。
     pass
 
 @rpc("any_peer", "unreliable", "call_remote")
 func sync_player_transform(_peer_id: int, _pos: Vector3, _yaw: float) -> void:
-    # TODO: apply remote transform with interpolation (CSP) on receiving side.
+    # TODO: 受信側で補間・クライアント側予測（CSP）を適用する。
     pass

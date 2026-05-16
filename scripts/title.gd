@@ -25,7 +25,7 @@ func _ready() -> void:
 func _update_info(idx: int) -> void:
     var id: String = ids[idx]
     var d: Dictionary = JobRegistry.get_job(id)
-    info_label.text = "%s\nCategory: %s\nHP: %d\nATK: %d\nAtkCD: %.2fs" % [
+    info_label.text = "%s\nカテゴリ: %s\nHP: %d\n攻撃力: %d\n攻撃間隔: %.2f秒" % [
         d.get("name", id), d.get("category", "?"),
         int(d.get("hp", 0)), int(d.get("atk", 0)),
         float(d.get("attack_cd", 0.5))

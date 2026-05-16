@@ -15,17 +15,17 @@ func _ready() -> void:
     _on_hp(0.0, GameState.home_hp)
 
 func _on_gold(g: int) -> void:
-    gold_label.text = "Gold: %d" % g
+    gold_label.text = "ゴールド: %d" % g
 
 func _on_hp(_dmg: float, hp: float) -> void:
-    hp_label.text = "Home HP: %d / %d" % [int(hp), int(GameState.home_max_hp)]
+    hp_label.text = "おうち HP: %d / %d" % [int(hp), int(GameState.home_max_hp)]
 
 func _on_wave(idx: int) -> void:
-    wave_label.text = "Wave: %d" % (idx + 1)
+    wave_label.text = "ウェーブ: %d" % (idx + 1)
 
 func _on_game_over() -> void:
     game_over.visible = true
 
 func _process(_dt: float) -> void:
     build_hint.visible = true
-    build_hint.text = "[B] Build  [1] Arrow  [2] Cannon  [3] Slow  [LMB] Attack/Place  [Shift] Dodge  [ESC] Cursor"
+    build_hint.text = "[B] 建設  [1] アロー  [2] キャノン  [3] スロウ  [左クリック] 攻撃/設置  [Shift] 回避  [ESC] カーソル"

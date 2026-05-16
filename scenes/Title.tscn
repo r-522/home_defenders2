@@ -17,7 +17,7 @@ offset_left = 40.0
 offset_top = 30.0
 offset_right = 1200.0
 offset_bottom = 90.0
-text = "Home Defenders ホーディ"
+text = "Home Defenders（ホーディ）"
 theme_override_font_sizes/font_size = 42
 
 [node name="Panel" type="Panel" parent="."]
@@ -43,19 +43,19 @@ custom_minimum_size = Vector2(420, 0)
 
 [node name="JobInfo" type="Label" parent="Panel/VBox/HBox"]
 size_flags_horizontal = 3
-text = "Select a job"
+text = "職業を選んでください"
 autowrap_mode = 2
 
 [node name="Buttons" type="HBoxContainer" parent="Panel/VBox"]
 
 [node name="Start" type="Button" parent="Panel/VBox/Buttons"]
-text = "Start Game"
+text = "ゲーム開始"
 custom_minimum_size = Vector2(180, 48)
 
 [node name="Settings" type="Button" parent="Panel/VBox/Buttons"]
-text = "Settings"
+text = "設定"
 custom_minimum_size = Vector2(160, 48)
 
 [node name="Room" type="LineEdit" parent="Panel/VBox/Buttons"]
-placeholder_text = "Room ID (optional, multiplayer)"
+placeholder_text = "ルーム ID（任意・マルチプレイ用）"
 custom_minimum_size = Vector2(320, 48)

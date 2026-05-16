@@ -1,5 +1,5 @@
 extends Node
-# Persistent runtime state: gold, wave, selected job, etc.
+# ゲーム実行中の永続的な状態（所持金・ウェーブ・選択職・拠点HP 等）。
 
 var gold: int = 200
 var current_wave: int = 0
@@ -9,6 +9,7 @@ var home_hp: float = 1000.0
 var is_running: bool = false
 
 func reset() -> void:
+    # ステージ開始時に呼び、初期値へ巻き戻す。
     gold = 200
     current_wave = 0
     home_hp = home_max_hp
@@ -20,6 +21,7 @@ func add_gold(amount: int) -> void:
     EventBus.gold_changed.emit(gold)
 
 func spend_gold(amount: int) -> bool:
+    # 不足時は false を返し、所持金は変動しない。
     if gold < amount:
         return false
     gold -= amount

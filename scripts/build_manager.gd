@@ -1,5 +1,5 @@
 extends Node3D
-# Build mode: ray-pick a ground tile, snap to grid, spend gold, place tower.
+# 建設モード: 地面をレイピッキング → グリッドにスナップ → ゴールド消費 → 設置。
 
 @export var grid_size: float = 2.0
 @export var player_path: NodePath

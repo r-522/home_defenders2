@@ -1,5 +1,5 @@
 extends Node
-# Persists InputMap + graphics + audio settings to user://settings.cfg.
+# キーバインド・グラフィック・オーディオ設定を user://settings.cfg に永続化。
 
 const PATH := "user://settings.cfg"
 
@@ -19,13 +19,15 @@ var audio := {
     "se": 1.0,
 }
 
-var bindings: Dictionary = {} # action_name -> Array[InputEvent]
+# アクション名 -> InputEvent 配列
+var bindings: Dictionary = {}
 
 func _ready() -> void:
     load_all()
     apply_all()
 
 func apply_all() -> void:
+    # 設定を実機（DisplayServer / InputMap / AudioServer）に反映。
     DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if graphics.vsync else DisplayServer.VSYNC_DISABLED)
     Engine.max_fps = int(graphics.fps_cap)
     for action in bindings.keys():
@@ -52,7 +54,7 @@ func save_all() -> void:
         cfg.set_value("graphics", k, graphics[k])
     for k in audio.keys():
         cfg.set_value("audio", k, audio[k])
-    # Bindings serialized as keycodes / button indices.
+    # キーは keycode、マウスは button_index でシリアライズ。
     for action in bindings.keys():
         var arr: Array = []
         for ev in bindings[action]:

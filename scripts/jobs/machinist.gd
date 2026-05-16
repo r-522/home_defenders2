@@ -1,6 +1,6 @@
 extends "res://scripts/jobs/_stub.gd"
-# Machinist: passive reduces tower cost (handled via balance lookup),
-# Q drops a temporary auto-turret at feet.
+# マシニスト: パッシブでタワー建設コスト軽減（balance.json 参照）。
+# Q で足元に時限式の自動タレットを設置。
 
 var _drop_scene: PackedScene = preload("res://scenes/Tower.tscn")
 

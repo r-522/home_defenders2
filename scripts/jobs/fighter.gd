@@ -1,5 +1,5 @@
 extends "res://scripts/jobs/_stub.gd"
-# Fighter: balanced. Q=shield bash knockback, E=guard stance, F=warcry.
+# ファイター: バランス型。Q=シールドバッシュ（吹き飛ばし）、E/F は共通スタブ。
 
 func on_skill_q() -> void:
     if cd.q > 0.0: return

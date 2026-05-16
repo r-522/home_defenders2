@@ -1,6 +1,6 @@
-// Vercel Edge Function: minimal WebSocket signaling relay for WebRTC.
-// Rooms are in-memory per edge instance — fine for casual co-op.
-// For production cross-region rooms, swap to Vercel KV / Upstash Redis pub-sub.
+// Vercel Edge Function: WebRTC 用の最小限の WebSocket シグナリング中継。
+// 部屋情報は Edge インスタンス内のメモリで保持（少人数の協力プレイ用途には十分）。
+// クロスリージョンで本格運用する場合は Vercel KV / Upstash Redis Pub-Sub への置換を推奨。
 
 export const config = { runtime: "edge" };
 

@@ -1,6 +1,7 @@
 extends Node
-# Resolves a job_id to its data + skill script (if specialised).
+# 職業 ID から、データ定義と専用スキルスクリプトを解決する。
 
+# 専用スキルロジックを持つ職業。未登録の職は _stub.gd（共通 AOE）にフォールバック。
 const SPECIALISED := {
     "fighter":    "res://scripts/jobs/fighter.gd",
     "mage":       "res://scripts/jobs/mage.gd",
@@ -12,7 +13,7 @@ const SPECIALISED := {
 func get_job(id: String) -> Dictionary:
     var jobs = DataLoader.jobs
     if not jobs.has(id):
-        push_warning("Unknown job: %s" % id)
+        push_warning("未知の職業 ID: %s" % id)
         return {}
     return jobs[id]
 
@@ -20,6 +21,7 @@ func all_ids() -> Array:
     return DataLoader.jobs.keys()
 
 func make_skill_handler(id: String, owner: Node) -> Node:
+    # 職業固有のスキル処理ノードを生成し、プレイヤーの子として登録する。
     var script_path: String = SPECIALISED.get(id, "res://scripts/jobs/_stub.gd")
     if not ResourceLoader.exists(script_path):
         script_path = "res://scripts/jobs/_stub.gd"

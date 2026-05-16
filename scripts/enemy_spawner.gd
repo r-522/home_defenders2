@@ -1,5 +1,5 @@
 extends Node3D
-# Reads data/waves.json. Spawns enemies at spawn points.
+# data/waves.json を読み込み、スポーンポイントから敵を出現させる。
 
 @export var enemy_scene: PackedScene
 @export var spawn_points_path: NodePath

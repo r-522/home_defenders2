@@ -1,5 +1,5 @@
 extends "res://scripts/jobs/_stub.gd"
-# Cleric: heal self & restore home small chunk.
+# クレリック: 自己回復 + 拠点（おうち）の HP を小回復。
 
 func on_skill_q() -> void:
     if cd.q > 0.0: return

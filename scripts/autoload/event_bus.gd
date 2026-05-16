@@ -1,5 +1,5 @@
 extends Node
-# Global event bus. Decouples gameplay systems.
+# グローバルイベントバス。各ゲームシステムを疎結合に保つ。
 
 signal home_damaged(amount: float, current_hp: float)
 signal home_destroyed()
