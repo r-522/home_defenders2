@@ -1,0 +1,6 @@
+{
+  "start_gold": 200,
+  "home_hp": 1000,
+  "machinist_cost_mult": 0.7,
+  "dodge_iframes": 0.35
+}

@@ -1,0 +1,9 @@
+{
+  "waves": [
+    {"rest": 8, "groups": [{"enemy": "grunt", "count": 8,  "interval": 0.8}]},
+    {"rest": 8, "groups": [{"enemy": "grunt", "count": 10, "interval": 0.7}, {"enemy": "runner", "count": 4, "interval": 0.6}]},
+    {"rest": 10,"groups": [{"enemy": "runner","count": 12, "interval": 0.5}, {"enemy": "brute",  "count": 2, "interval": 1.5}]},
+    {"rest": 10,"groups": [{"enemy": "grunt", "count": 15, "interval": 0.5}, {"enemy": "shaman", "count": 3, "interval": 1.2}]},
+    {"rest": 14,"groups": [{"enemy": "brute", "count": 5,  "interval": 1.2}, {"enemy": "warlord","count": 1, "interval": 0.0}]}
+  ]
+}
