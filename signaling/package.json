@@ -1,0 +1,6 @@
+{
+  "name": "home-defenders-signaling",
+  "private": true,
+  "version": "0.1.0",
+  "description": "WebRTC signaling for Home Defenders (Vercel Edge)."
+}

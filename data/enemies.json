@@ -1,0 +1,7 @@
+{
+  "grunt":    {"hp": 60,  "speed": 3.5, "damage": 10, "reward": 8,  "scale": 1.0},
+  "runner":   {"hp": 40,  "speed": 5.5, "damage": 8,  "reward": 10, "scale": 0.8},
+  "brute":    {"hp": 180, "speed": 2.5, "damage": 25, "reward": 25, "scale": 1.4},
+  "shaman":   {"hp": 80,  "speed": 3.0, "damage": 14, "reward": 15, "scale": 1.0},
+  "warlord":  {"hp": 600, "speed": 2.2, "damage": 60, "reward": 120,"scale": 2.0}
+}

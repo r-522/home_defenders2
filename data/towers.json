@@ -1,0 +1,5 @@
+{
+  "arrow":  {"name": "Arrow Tower",  "cost": 50,  "range": 14, "fire_cd": 0.55, "damage": 22, "splash": 0.0},
+  "cannon": {"name": "Cannon",       "cost": 120, "range": 12, "fire_cd": 1.40, "damage": 55, "splash": 4.0},
+  "slow":   {"name": "Frost Spire",  "cost": 80,  "range": 10, "fire_cd": 1.00, "damage": 6,  "slow_factor": 0.45, "slow_duration": 1.4}
+}
