@@ -20,6 +20,28 @@ func get_job(id: String) -> Dictionary:
 func all_ids() -> Array:
     return DataLoader.jobs.keys()
 
+const CATEGORY_JA := {
+    "melee":   "近接戦闘",
+    "magic":   "魔法",
+    "support": "回復・支援",
+    "agile":   "敏捷・技巧",
+    "special": "特殊",
+}
+
+const CATEGORY_COLOR := {
+    "melee":   Color(0.90, 0.30, 0.30),
+    "magic":   Color(0.65, 0.35, 0.95),
+    "support": Color(1.00, 0.82, 0.35),
+    "agile":   Color(0.40, 0.85, 0.45),
+    "special": Color(0.30, 0.85, 0.95),
+}
+
+func category_label(cat: String) -> String:
+    return CATEGORY_JA.get(cat, cat)
+
+func category_color(cat: String) -> Color:
+    return CATEGORY_COLOR.get(cat, Color(0.7, 0.7, 0.7))
+
 func make_skill_handler(id: String, owner: Node) -> Node:
     # 職業固有のスキル処理ノードを生成し、プレイヤーの子として登録する。
     var script_path: String = SPECIALISED.get(id, "res://scripts/jobs/_stub.gd")

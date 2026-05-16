@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://hud_0001"]
+[gd_scene load_steps=4 format=3 uid="uid://hud_0001"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="HP_FG"]
+bg_color = Color(0.85, 0.2, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="HP_BG"]
+bg_color = Color(0.05, 0.06, 0.10, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.78, 0.62, 0.28, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -9,37 +28,159 @@ script = ExtResource("1")
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Top" type="HBoxContainer" parent="Root"]
-offset_left = 20.0
-offset_top = 12.0
-offset_right = 1260.0
-offset_bottom = 50.0
+[node name="TopLeft" type="Panel" parent="Root"]
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 360.0
+offset_bottom = 78.0
 
-[node name="HomeHP" type="Label" parent="Root/Top"]
-text = "おうち HP: ---"
-custom_minimum_size = Vector2(320, 0)
+[node name="HomeLabel" type="Label" parent="Root/TopLeft"]
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 28.0
+text = "♥ おうち HP"
 
-[node name="Gold" type="Label" parent="Root/Top"]
-text = "ゴールド: ---"
-custom_minimum_size = Vector2(220, 0)
+[node name="HPBar" type="ProgressBar" parent="Root/TopLeft"]
+offset_left = 12.0
+offset_top = 30.0
+offset_right = 332.0
+offset_bottom = 56.0
+max_value = 1000.0
+value = 1000.0
+show_percentage = false
+theme_override_styles/fill = SubResource("HP_FG")
+theme_override_styles/background = SubResource("HP_BG")
 
-[node name="Wave" type="Label" parent="Root/Top"]
-text = "ウェーブ: ---"
-custom_minimum_size = Vector2(180, 0)
+[node name="HomeHP" type="Label" parent="Root/TopLeft"]
+offset_left = 12.0
+offset_top = 30.0
+offset_right = 332.0
+offset_bottom = 56.0
+text = "1000 / 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="BuildHint" type="Label" parent="Root"]
-offset_left = 20.0
-offset_top = 660.0
-offset_right = 1260.0
-offset_bottom = 700.0
+[node name="TopRight" type="Panel" parent="Root"]
+offset_left = -260.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 56.0
+anchor_left = 1.0
+anchor_right = 1.0
+
+[node name="Gold" type="Label" parent="Root/TopRight"]
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 232.0
+offset_bottom = 38.0
+text = "◆ ゴールド: 0"
+theme_override_font_sizes/font_size = 22
+
+[node name="TopCenter" type="Panel" parent="Root"]
+offset_left = -160.0
+offset_top = 14.0
+offset_right = 160.0
+offset_bottom = 56.0
+anchor_left = 0.5
+anchor_right = 0.5
+
+[node name="Wave" type="Label" parent="Root/TopCenter"]
+offset_left = 0.0
+offset_top = 4.0
+offset_right = 320.0
+offset_bottom = 38.0
+text = "ウェーブ 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 22
+
+[node name="WaveBanner" type="Label" parent="Root"]
+offset_left = -380.0
+offset_top = 180.0
+offset_right = 380.0
+offset_bottom = 280.0
+anchor_left = 0.5
+anchor_right = 0.5
 text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+modulate = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+
+[node name="Crosshair" type="Label" parent="Root"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 0.8)
+
+[node name="BottomPanel" type="Panel" parent="Root"]
+offset_left = -380.0
+offset_top = -100.0
+offset_right = 380.0
+offset_bottom = -16.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+
+[node name="BuildHint" type="Label" parent="Root/BottomPanel"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 748.0
+offset_bottom = 38.0
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+
+[node name="Skills" type="HBoxContainer" parent="Root/BottomPanel"]
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 748.0
+offset_bottom = 78.0
+alignment = 1
+
+[node name="SkillQ" type="Label" parent="Root/BottomPanel/Skills"]
+custom_minimum_size = Vector2(150, 36)
+text = "[Q] スキル 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillE" type="Label" parent="Root/BottomPanel/Skills"]
+custom_minimum_size = Vector2(150, 36)
+text = "[E] スキル 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillF" type="Label" parent="Root/BottomPanel/Skills"]
+custom_minimum_size = Vector2(150, 36)
+text = "[F] スキル 3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GameOver" type="Panel" parent="Root"]
 visible = false
-offset_left = 440.0
-offset_top = 280.0
-offset_right = 840.0
-offset_bottom = 420.0
+offset_left = -260.0
+offset_top = -100.0
+offset_right = 260.0
+offset_bottom = 100.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [node name="Label" type="Label" parent="Root/GameOver"]
 anchor_right = 1.0
@@ -47,4 +188,5 @@ anchor_bottom = 1.0
 text = "ゲームオーバー"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 44
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)

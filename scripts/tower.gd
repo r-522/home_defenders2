@@ -34,6 +34,29 @@ func configure(kind_id: String) -> void:
 func _ready() -> void:
     range_area.body_entered.connect(_on_enter)
     range_area.body_exited.connect(_on_exit)
+    _retint_crystal()
+
+func _retint_crystal() -> void:
+    var crystal := get_node_or_null("Visual/Crystal")
+    var light := get_node_or_null("Visual/CrystalLight")
+    if crystal == null:
+        return
+    var col := Color(0.5, 0.85, 1.0)
+    match kind:
+        "cannon":
+            col = Color(1.0, 0.55, 0.18)
+        "slow":
+            col = Color(0.55, 0.95, 1.0)
+        _:
+            col = Color(0.55, 0.85, 0.45)
+    if crystal.material is StandardMaterial3D:
+        var m: StandardMaterial3D = (crystal.material as StandardMaterial3D).duplicate()
+        m.albedo_color = col
+        m.emission = col
+        m.emission_energy_multiplier = 1.8
+        crystal.material = m
+    if light:
+        light.light_color = col
 
 func _on_enter(b: Node) -> void:
     if b.is_in_group("enemies"):
@@ -45,6 +68,10 @@ func _on_exit(b: Node) -> void:
 func _process(dt: float) -> void:
     _cd = max(0.0, _cd - dt)
     _targets = _targets.filter(func(t): return is_instance_valid(t))
+    # クリスタルのゆらぎ
+    var crystal := get_node_or_null("Visual/Crystal")
+    if crystal:
+        crystal.rotation.y += dt * 1.5
     if _cd > 0.0 or _targets.is_empty():
         return
     var target: Node3D = _targets[0]
@@ -52,6 +79,7 @@ func _process(dt: float) -> void:
     _cd = fire_cd
 
 func _fire(target: Node3D) -> void:
+    _muzzle_flash()
     match kind:
         "slow":
             if target.has_method("apply_slow"):
@@ -70,3 +98,29 @@ func _fire(target: Node3D) -> void:
             p.global_transform = muzzle.global_transform
             var dir := (target.global_position - muzzle.global_position).normalized()
             p.launch(dir, damage)
+
+func _muzzle_flash() -> void:
+    # 砲口の閃光（小さなパーティクル）
+    var p := CPUParticles3D.new()
+    p.amount = 8
+    p.one_shot = true
+    p.emitting = true
+    p.lifetime = 0.18
+    p.explosiveness = 1.0
+    p.direction = Vector3(0, 0, -1)
+    p.spread = 30.0
+    p.initial_velocity_min = 1.0
+    p.initial_velocity_max = 2.5
+    p.scale_amount_min = 0.08
+    p.scale_amount_max = 0.16
+    var col := Color(1.0, 0.85, 0.4)
+    if kind == "slow":
+        col = Color(0.6, 0.9, 1.0)
+    elif kind == "cannon":
+        col = Color(1.0, 0.5, 0.18)
+    p.color = col
+    add_child(p)
+    p.global_transform = muzzle.global_transform
+    var tw := p.create_tween()
+    tw.tween_interval(0.4)
+    tw.tween_callback(p.queue_free)

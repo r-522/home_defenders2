@@ -14,7 +14,8 @@ func _ready() -> void:
     ids.sort()
     for id in ids:
         var d: Dictionary = JobRegistry.get_job(id)
-        job_list.add_item("%s (%s)" % [d.get("name", id), d.get("category", "?")])
+        var cat_ja: String = JobRegistry.category_label(d.get("category", ""))
+        job_list.add_item("%s 〈%s〉" % [d.get("name", id), cat_ja])
     if ids.size() > 0:
         job_list.select(0)
         _update_info(0)
@@ -25,8 +26,8 @@ func _ready() -> void:
 func _update_info(idx: int) -> void:
     var id: String = ids[idx]
     var d: Dictionary = JobRegistry.get_job(id)
-    info_label.text = "%s\nカテゴリ: %s\nHP: %d\n攻撃力: %d\n攻撃間隔: %.2f秒" % [
-        d.get("name", id), d.get("category", "?"),
+    info_label.text = "■ %s\nカテゴリ: %s\nHP: %d\n攻撃力: %d\n攻撃間隔: %.2f秒\n\nQ / E / F でスキル発動。\n左クリックで攻撃、Shift で回避、\nB で建設モード。" % [
+        d.get("name", id), JobRegistry.category_label(d.get("category", "")),
         int(d.get("hp", 0)), int(d.get("atk", 0)),
         float(d.get("attack_cd", 0.5))
     ]

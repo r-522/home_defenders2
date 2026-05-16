@@ -13,6 +13,8 @@ var hp: float = 60.0
 var home_ref: Node3D = null
 var _atk_timer: float = 0.0
 var slow_factor: float = 1.0
+var _flash_t: float = 0.0
+var _orig_emission: Color = Color(1, 0.18, 0.05, 1)
 
 func _ready() -> void:
     hp = max_hp
@@ -56,10 +58,51 @@ func _physics_process(dt: float) -> void:
 
 func take_damage(amount: float) -> void:
     hp -= amount
+    _flash_t = 0.12
+    _set_body_emission(Color(1.0, 0.4, 0.4, 1), 1.5)
     if hp <= 0:
         GameState.add_gold(reward_gold)
         EventBus.enemy_killed.emit(self, reward_gold)
+        _spawn_death_vfx()
         queue_free()
+
+func _process(dt: float) -> void:
+    if _flash_t > 0.0:
+        _flash_t -= dt
+        if _flash_t <= 0.0:
+            _set_body_emission(Color(0, 0, 0, 1), 0.0)
+
+func _set_body_emission(col: Color, energy: float) -> void:
+    var rig: Node3D = get_node_or_null("Rig")
+    if rig == null:
+        return
+    for c in rig.get_children():
+        if c is CSGShape3D and c.material is StandardMaterial3D:
+            var m: StandardMaterial3D = c.material
+            m.emission_enabled = energy > 0.0
+            m.emission = col
+            m.emission_energy_multiplier = energy
+
+func _spawn_death_vfx() -> void:
+    var p := CPUParticles3D.new()
+    p.amount = 30
+    p.lifetime = 0.6
+    p.one_shot = true
+    p.emitting = true
+    p.explosiveness = 0.9
+    p.direction = Vector3(0, 1, 0)
+    p.spread = 80.0
+    p.gravity = Vector3(0, -1.0, 0)
+    p.initial_velocity_min = 2.5
+    p.initial_velocity_max = 5.0
+    p.scale_amount_min = 0.10
+    p.scale_amount_max = 0.20
+    p.color = Color(0.65, 0.18, 0.35, 1)
+    get_tree().current_scene.add_child(p)
+    p.global_position = global_position + Vector3(0, 0.6, 0)
+    var tw := p.create_tween()
+    tw.tween_interval(1.0)
+    tw.tween_callback(p.queue_free)
 
 func apply_slow(factor: float, duration: float) -> void:
     slow_factor = clamp(factor, 0.1, 1.0)
