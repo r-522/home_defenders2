@@ -1,10 +1,5 @@
 .godot/
 .import/
-# CI build artefacts (Godot Web export overwrites public/index.html)
-public/*.wasm
-public/*.pck
-public/*.js
-public/*.png
 *.tmp
 node_modules/
 .DS_Store

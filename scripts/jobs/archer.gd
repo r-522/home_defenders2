@@ -7,10 +7,10 @@ func on_skill_q() -> void:
     var origin: Vector3 = _owner.global_position
     var dir: Vector3 = _owner.aim_dir().normalized()
     for e in _owner.get_tree().get_nodes_in_group("enemies"):
-        var to_e := e.global_position - origin
-        var proj := to_e.dot(dir)
+        var to_e: Vector3 = e.global_position - origin
+        var proj: float = to_e.dot(dir)
         if proj < 0 or proj > 30.0:
             continue
-        var perp := (to_e - dir * proj).length()
+        var perp: float = (to_e - dir * proj).length()
         if perp <= 1.5 and e.has_method("take_damage"):
             e.take_damage(60.0)

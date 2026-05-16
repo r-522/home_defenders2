@@ -4,7 +4,7 @@ extends "res://scripts/jobs/_stub.gd"
 func on_skill_q() -> void:
     if cd.q > 0.0: return
     cd.q = 8.0
-    var aim_pos := _owner.global_position + _owner.aim_dir() * 12.0
+    var aim_pos: Vector3 = _owner.global_position + _owner.aim_dir() * 12.0
     var ind := MeshInstance3D.new()
     var sm := SphereMesh.new()
     sm.radius = 5.0

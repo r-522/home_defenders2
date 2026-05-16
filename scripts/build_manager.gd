@@ -54,7 +54,7 @@ func _ensure_ghost() -> void:
 func _process(_dt: float) -> void:
     if not build_mode or _camera == null:
         return
-    var pos := _aim_ground()
+    var pos = _aim_ground()
     if pos == null:
         return
     ghost.global_position = _snap(pos)
