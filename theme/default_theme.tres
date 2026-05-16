@@ -1,0 +1,123 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://default_theme_0001"]
+
+[ext_resource type="FontFile" path="res://assets/fonts/NotoSansJP-Regular.otf" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="PanelBox"]
+bg_color = Color(0.05, 0.07, 0.13, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.78, 0.62, 0.28, 0.75)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="ButtonNormal"]
+bg_color = Color(0.08, 0.11, 0.18, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.46, 0.25, 0.8)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="ButtonHover"]
+bg_color = Color(0.14, 0.19, 0.30, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.83, 0.36, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="ButtonPressed"]
+bg_color = Color(0.20, 0.15, 0.06, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.75, 0.25, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="ItemListBg"]
+bg_color = Color(0.03, 0.04, 0.08, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.46, 0.25, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="LineEditBg"]
+bg_color = Color(0.04, 0.06, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.46, 0.25, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[resource]
+default_font = ExtResource("1")
+default_font_size = 18
+Button/colors/font_color = Color(0.93, 0.88, 0.74, 1)
+Button/colors/font_hover_color = Color(1, 0.95, 0.75, 1)
+Button/colors/font_pressed_color = Color(1, 0.82, 0.4, 1)
+Button/styles/normal = SubResource("ButtonNormal")
+Button/styles/hover = SubResource("ButtonHover")
+Button/styles/pressed = SubResource("ButtonPressed")
+Button/styles/focus = SubResource("ButtonHover")
+Label/colors/font_color = Color(0.92, 0.90, 0.80, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.65)
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/outline_size = 0
+Panel/styles/panel = SubResource("PanelBox")
+ItemList/styles/panel = SubResource("ItemListBg")
+ItemList/styles/focus = SubResource("ItemListBg")
+ItemList/colors/font_color = Color(0.88, 0.85, 0.74, 1)
+ItemList/colors/font_selected_color = Color(1, 0.92, 0.55, 1)
+LineEdit/styles/normal = SubResource("LineEditBg")
+LineEdit/styles/focus = SubResource("LineEditBg")
+LineEdit/colors/font_color = Color(0.92, 0.90, 0.80, 1)
+LineEdit/colors/font_placeholder_color = Color(0.55, 0.55, 0.55, 1)
+CheckBox/colors/font_color = Color(0.92, 0.90, 0.80, 1)
+OptionButton/styles/normal = SubResource("ButtonNormal")
+OptionButton/styles/hover = SubResource("ButtonHover")
+OptionButton/styles/pressed = SubResource("ButtonPressed")
+OptionButton/colors/font_color = Color(0.93, 0.88, 0.74, 1)

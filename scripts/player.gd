@@ -15,6 +15,10 @@ extends CharacterBody3D
 @onready var spring: SpringArm3D = $Yaw/Pitch/SpringArm3D
 @onready var camera: Camera3D = $Yaw/Pitch/SpringArm3D/Camera3D
 @onready var muzzle: Marker3D = $Yaw/Muzzle
+@onready var rig: Node3D = $Rig
+
+var shake_t: float = 0.0
+var shake_amp: float = 0.0
 
 var hp: float = 100.0
 var dodging: bool = false
@@ -36,6 +40,32 @@ func _ready() -> void:
     max_hp = float(job_data.get("hp", 100))
     hp = max_hp
     job_logic = JobRegistry.make_skill_handler(job_id, self)
+    _apply_job_palette()
+
+func _apply_job_palette() -> void:
+    # 職業カテゴリ別の配色を Rig に反映（マント・武器エミッションなど）。
+    var cat: String = job_data.get("category", "melee")
+    var col: Color = JobRegistry.category_color(cat)
+    var cape: MeshInstance3D = rig.get_node_or_null("Cape")
+    if cape and cape.material_override is StandardMaterial3D:
+        var m: StandardMaterial3D = (cape.material_override as StandardMaterial3D).duplicate()
+        m.albedo_color = col.darkened(0.1)
+        cape.material_override = m
+    var crest: CSGBox3D = rig.get_node_or_null("HelmCrest")
+    if crest and crest.material is StandardMaterial3D:
+        var m2: StandardMaterial3D = (crest.material as StandardMaterial3D).duplicate()
+        m2.albedo_color = col
+        crest.material = m2
+    var blade: MeshInstance3D = rig.get_node_or_null("Weapon/Blade")
+    if blade and blade.material_override is StandardMaterial3D:
+        var m3: StandardMaterial3D = (blade.material_override as StandardMaterial3D).duplicate()
+        m3.emission = col
+        m3.emission_energy_multiplier = 0.25
+        blade.material_override = m3
+
+func add_camera_shake(amp: float, duration: float) -> void:
+    shake_amp = max(shake_amp, amp)
+    shake_t = max(shake_t, duration)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -81,6 +111,25 @@ func _physics_process(dt: float) -> void:
         velocity.y = -0.1
 
     move_and_slide()
+
+    # キャラの簡易ボブ（移動中わずかに上下）と進行方向向き
+    if rig:
+        if wish.length() > 0.05:
+            var target_yaw := atan2(wish.x, wish.z) + PI
+            rig.rotation.y = lerp_angle(rig.rotation.y, target_yaw, 12.0 * dt)
+            rig.position.y = lerp(rig.position.y, -0.93 + sin(Time.get_ticks_msec() * 0.012) * 0.04, 10.0 * dt)
+        else:
+            rig.position.y = lerp(rig.position.y, -0.93, 8.0 * dt)
+
+    # カメラシェイク（攻撃ヒット時に呼ばれる）
+    if shake_t > 0.0:
+        shake_t -= dt
+        var nx := randf_range(-1.0, 1.0) * shake_amp
+        var ny := randf_range(-1.0, 1.0) * shake_amp
+        pitch.rotation.x += nx * dt
+        yaw.rotation.y += ny * dt
+        if shake_t <= 0.0:
+            shake_amp = 0.0
 
     if Input.is_action_pressed("attack") and attack_cd <= 0.0:
         _basic_attack()
